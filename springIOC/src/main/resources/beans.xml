@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="accountService" class="com.ly9999y.spring.service.impl.AccountServiceImpl"></bean>
+    <bean id="accountDao" class="com.ly9999y.spring.dao.impl.AccountDaoImpl"></bean>
+    <bean id="accountServiceByFactory" class="com.ly9999y.spring.beanfactory.StaticFactory"
+          factory-method="createAccountService"></bean>
+    <bean id="accountServiceByContructor" class="com.ly9999y.spring.service.impl.AccountServiceImpl">
+        <constructor-arg name="name" value="张三"></constructor-arg>
+        <constructor-arg name="age" value="18"></constructor-arg>
+        <constructor-arg name="birthday" ref="now"></constructor-arg>
+    </bean>
+    <bean id="now" class="java.util.Date"></bean>
+
+    <!-- 注入集合数据 List结构的： array,list,set Map结构的 map,entry,props,prop -->
+    <bean id="accountServiceList" class="com.ly9999y.spring.service.impl.AccountServiceImpl">
+        <!-- 在注入集合数据时，只要结构相同，标签可以互换 --> <!-- 给数组注入数据 -->
+        <property name="myStrs">
+            <set>
+                <value>AAA</value>
+                <value>BBB</value>
+                <value>CCC</value>
+            </set>
+        </property>
+        <!-- 注入list集合数据 -->
+        <property name="myList">
+            <array>
+                <value>AAA</value>
+                <value>BBB</value>
+                <value>CCC</value>
+            </array>
+        </property>
+        <!-- 注入set集合数据 -->
+        <property name="mySet">
+            <list>
+                <value>AAA</value>
+                <value>BBB</value>
+                <value>CCC</value>
+            </list>
+        </property>
+        <!-- 注入Map数据 -->
+        <property name="myMap">
+            <props>
+                <prop key="testA">aaa</prop>
+                <prop key="testB">bbb</prop>
+            </props>
+        </property>
+        <!-- 注入properties数据 -->
+        <property name="myProps">
+            <map>
+                <entry key="testA" value="aaa"></entry>
+                <entry key="testB">
+                    <value>bbb</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>
